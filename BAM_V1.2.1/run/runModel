@@ -307,7 +307,7 @@ MRES=$(printf "TQ%04dL%03d" ${TRC} ${LV})
 # Variáveis da máquina
 #
 walltime=00:10:00
-queue=pesq
+queue=batch
 queue_name="BAM${TRC}"
 
 #
@@ -424,21 +424,43 @@ sed -e "s;#TRUNC#;${TRC};g"                                                   \
 # Cria o script de submissão do modelo
 #
 cat << EOF > ${BAMSCP}
-#!/bin/bash
-#PBS -o ${HSTMAQ}:${BAMRUN}/setout/Out.model.${PREFIX}.${LABELI}.${tmstp}.MPI${MPITasks}.out
-#PBS -j oe
-#PBS -l walltime=${walltime}
-#PBS -l mppwidth=${MPITasks}
-#PBS -l mppnppn=${TasksPerNode}
-#PBS -l mppdepth=${ThreadsPerMPITask}
-#PBS -V
-#PBS -S /bin/bash
-#PBS -N ${queue_name}
-#PBS -q ${queue}
-#PBS -A ${QUOTA}
+#!/bin/bash -x
+#SBATCH --output=${BAMRUN}/setout/Out.model.${PREFIX}.${LABELI}.${tmstp}.MPI${MPITasks}.out
+#SBATCH --error=${BAMRUN}/setout/Out.model.${PREFIX}.${LABELI}.${tmstp}.MPI${MPITasks}.err
+#SBATCH --time=${walltime}
+#SBATCH --tasks-per-node=${MPITasks}
+#SBATCH --nodes=${TasksPerNode}
+#SBATCH --job-name=singularity-${queue_name}
+#SBATCH --partition=${queue}
+
+
+####!/bin/bash
+####PBS -o ${HSTMAQ}:${BAMRUN}/setout/Out.model.${PREFIX}.${LABELI}.${tmstp}.MPI${MPITasks}.out
+####PBS -j oe
+####PBS -l walltime=${walltime}
+####PBS -l mppwidth=${MPITasks}
+####PBS -l mppnppn=${TasksPerNode}
+####PBS -l mppdepth=${ThreadsPerMPITask}
+####PBS -V
+####PBS -S /bin/bash
+####PBS -N ${queue_name}
+####PBS -q ${queue}
+####PBS -A ${QUOTA}
 
 ulimit -s unlimited
 ulimit -c unlimited
+
+# EGEON GNU
+module purge
+module load gnu9/9.4.0
+module load ucx/1.11.2
+module load openmpi4/4.1.1
+module load netcdf/4.7.4
+module load netcdf-fortran/4.5.3
+module load phdf5/1.10.8
+module load hwloc
+module load libfabric/1.13.0
+module load singularity
 
 export HUGETLB_MORECORE=yes
 export HUGETLB_ELFMAP=W
@@ -449,13 +471,22 @@ export OMP_NUM_THREADS=${ThreadsPerMPITask}
 
 cd ${BAMRUN}
 
-/usr/bin/time -v aprun -n ${MPITasks} -N ${TasksPerNode} -d ${ThreadsPerMPITask} ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+cat /etc/passwd > /mnt/beegfs/carlos.bastarz/BAM_V1.2.1/model/exec_SMT2020021700/setout/passwd
+
+#/usr/bin/time -v aprun -n ${MPITasks} -N ${TasksPerNode} -d ${ThreadsPerMPITask} ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+#srun -n ${MPITasks} -N ${ThreadsPerMPITask} ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+/opt/ohpc/pub/libs/singularity/3.7.1/bin/singularity -d --bind /mnt/beegfs/carlos.bastarz:/mnt/beegfs/carlos.bastarz exec /mnt/beegfs/carlos.bastarz/containers/ubuntu_remix_latest-gcc_4.8.5.sif mpirun -n ${MPITasks} -N ${ThreadsPerMPITask} ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+#mpirun -n ${MPITasks} -N ${ThreadsPerMPITask} /opt/ohpc/pub/libs/singularity/3.7.1/bin/singularity -d --bind /mnt/beegfs/carlos.bastarz:/mnt/beegfs/carlos.bastarz exec /mnt/beegfs/carlos.bastarz/containers/ubuntu_remix_latest-gcc_4.8.5.sif ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+#mpirun -n ${MPITasks} -N ${ThreadsPerMPITask} /opt/ohpc/pub/libs/singularity/3.7.1/bin/singularity -d exec /mnt/beegfs/carlos.bastarz/containers/ubuntu_remix_latest-gcc_4.8.5.sif --bind /mnt/beegfs/carlos.bastarz:/mnt/beegfs/carlos.bastarz ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+#srun -n ${MPITasks} -N ${ThreadsPerMPITask} /opt/ohpc/pub/libs/singularity/3.7.1/bin/singularity -d exec /mnt/beegfs/carlos.bastarz/containers/ubuntu_remix_latest-gcc_4.8.5.sif --bind /mnt/beegfs/carlos.bastarz:/mnt/beegfs/carlos.bastarz ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
+#/opt/ohpc/pub/libs/singularity/3.7.1/bin/singularity -d --bind /mnt/beegfs/carlos.bastarz:/mnt/beegfs/carlos.bastarz exec /mnt/beegfs/carlos.bastarz/containers/ubuntu_remix_latest-gcc_4.8.5.sif srun -n ${MPITasks} -N ${ThreadsPerMPITask} ${BAMRUN}/$(basename ${BAMEXE}) > ${BAMLOG} 2>&1
 
 echo "" > ${BAMRUN}/monitor.bam
 EOF
 
 cd ${BAMRUN}
-${QSUB} ${hold} ${BAMSCP}
+#${QSUB} ${hold} ${BAMSCP}
+${QSUB} ${BAMSCP}
 
 until [ -e ${BAMRUN}/monitor.bam ]; do sleep 1s; done
 rm -fr ${BAMRUN}/monitor.bam
