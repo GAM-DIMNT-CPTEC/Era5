@@ -16,7 +16,7 @@
 # 
 FTRACE= -O1
 OPENMP=
-F90=mpif90 $(FTRACE) $(OPENMP) -ffree-line-length-none
+F90=mpif90 -fconvert=big-endian $(FTRACE) $(OPENMP) -ffree-line-length-none
 NOASSUME=
 HVECTOR=
 INLINE_CU_GRELL=

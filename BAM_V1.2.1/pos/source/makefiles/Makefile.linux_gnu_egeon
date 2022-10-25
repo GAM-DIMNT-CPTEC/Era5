@@ -16,10 +16,10 @@
 # 
 AR=ar
 ARFLAGS = 
-F90=mpif90
+F90=mpif90 -fconvert=big-endian
 F90_32FLAGS = 
 F90_32BITS = -O3
-F77 = mpif90
+F77 = mpif90 -fconvert=big-endian
 FFLAGS = -O3
 CC = gcc
 # If there is a version difference between your gcc and the gcc
