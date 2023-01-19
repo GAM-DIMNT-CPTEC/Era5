@@ -29,7 +29,7 @@ aptions7="sib2sandmskclm sib2sandmsk sstdirec    co2direc   topograd   chpp     
 opt=" "
 MAKE=make
 # Caminho onde deverao ficar os arquivos executaveis do Pre
-PATH2=/scratchin/grupos/ensemble/home/carlos.bastarz/BAM_V1.2.1/pre/exec
+PATH2=/mnt/beegfs/carlos.bastarz/oensMB09/pre/exec.intel_new_libs
 
 all:
 	@echo "Please specify target:"
@@ -45,18 +45,6 @@ all:
 	@echo "sib2sandmskclm sib2sandmsk     sstdirec     co2direc  topograd  chpp     sstdailydirec  soilmwklcptec soilmweekly"
 
 .DEFAULT:
-
-	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f bacio/v2.0.2/src_32bits/Makefile.$@ ];\
-	   then ln -fs ../../../makefiles/Makefile.$@ bacio/v2.0.2/src_32bits/Makefile.$@; fi)
-
-	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f bacio/v2.0.2/src_64bits/Makefile.$@ ];\
-	   then ln -fs ../../../makefiles/Makefile.$@ bacio/v2.0.2/src_64bits/Makefile.$@; fi)
-
-	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f w3lib-1.4/Makefile.$@ ];\
-	   then ln -fs ../makefiles/Makefile.$@ w3lib-1.4/Makefile.$@; fi)
-
-	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f nemsio/v2.2.2/src/Makefile.$@ ];\
-	   then ln -fs ../../../makefiles/Makefile.$@ nemsio/v2.2.2/src/Makefile.$@; fi)
 
 	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f Albedo/Makefile.$@ ];\
 	   then ln -fs ../makefiles/Makefile.$@ Albedo/Makefile.$@; fi)
@@ -224,10 +212,9 @@ all:
 # builds the binaries
 #
 
-	@- (cd bacio/v2.0.2/src_32bits;$(MAKE) -f Makefile.$@;$(MAKE) -f Makefile.$@)
-	@- (cd bacio/v2.0.2/src_64bits;$(MAKE) -f Makefile.$@;$(MAKE) -f Makefile.$@)
-	@- (cd w3lib-1.4;$(MAKE) -f Makefile.$@;$(MAKE) -f Makefile.$@)
-	@- (cd nemsio/v2.2.2/src;$(MAKE) -f Makefile.$@;$(MAKE) -f Makefile.$@)
+	@- (rm -rf bacio/NCEPLIBS-bacio-2.5.0/build; rm -rf bacio/NCEPLIBS-bacio-2.5.0/rls; cd bacio/; ./makebacio_cptec.sh $@)
+	@- (rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/build; rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/rls; cd w3emc/; ./makew3emc_cptec.sh $@)
+	@- (rm -rf nemsio/NCEPLIBS-nemsio-2.5.4/build; rm -rf nemsio/NCEPLIBS-nemsio-2.5.4/rls; cd nemsio/; ./makenemsio_cptec.sh $@)
 
 	@ (if [ ${opt} = "alb" ];then cd Albedo;$(MAKE) -f Makefile.$@;cp Albedo $(PATH2)/Albedo; fi)
 	@ (if [ ${opt} = " " ];then   cd Albedo;$(MAKE) -f Makefile.$@;cp Albedo $(PATH2)/Albedo; fi)
@@ -398,10 +385,9 @@ all:
 clean:
 	@echo "$(MAKE)"
 
-	(cd w3lib-1.4;$(MAKE) -f Makefile.common clean)
-	(cd bacio/v2.0.2/src_32bits/;$(MAKE) -f Makefile.common clean)
-	(cd bacio/v2.0.2/src_64bits/;$(MAKE) -f Makefile.common clean)
-	(cd nemsio/v2.2.2/src/;$(MAKE) -f Makefile.common clean)
+	(rm -rf bacio/NCEPLIBS-bacio-2.5.0/build; rm -rf bacio/NCEPLIBS-bacio-2.5.0/rls)
+	(rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/build; rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/rls)
+	(rm -rf nemsio/NCEPLIBS-nemsio-2.5.4/build; rm -rf nemsio/NCEPLIBS-nemsio-2.5.4/rls)
 	(cd Albedo;$(MAKE) -f Makefile.common clean)
 	(cd AlbedoClima;$(MAKE) -f Makefile.common clean)
 	(cd Chopping_serial;$(MAKE) -f Makefile.common clean)
