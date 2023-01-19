@@ -9,7 +9,9 @@
 # included by machine specific makefiles.
 #
 EXEC=PostGrib
-LIB=w3lib-1.4/libw3.a
+#LIB=w3lib-1.4/libw3.a
+LIB=w3emc/NCEPLIBS-w3emc-2.9.3/rls/lib64/libw3emc_4.a
+LIB2=bacio/NCEPLIBS-bacio-2.5.0/rls/lib/libbacio.a
 
 OBJ = \
 	mod_tables.o \
@@ -36,7 +38,7 @@ OBJ = \
 	post.o
 
 pos:	$(OBJ)
-	$(F90) -o $(EXEC) $(F90_32BITS) $(LOADFLAG) $(OBJ) $(LIB)
+	$(F90) -o $(EXEC) $(F90_32BITS) $(LOADFLAG) $(OBJ) $(LIB) $(LIB2)
 
 Watches.o:               Watches.f90
 	$(F90) -c $(F90FLAG) Watches.f90
