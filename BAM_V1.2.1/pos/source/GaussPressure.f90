@@ -100,7 +100,7 @@ CONTAINS
                 WRITE (UNIT=nferr, FMT=*)' q0=',q00(i,k),' q1=',q1,' i=',i,' j=',j,' k=',k
                 WRITE (UNIT=nferr, FMT=*)' pm=',pmand(k),' ts=',sg(i,k,j),' rs=',rg(i,k,j)
                 WRITE (UNIT=nferr, FMT=*)' ***   Disaster in getsh   ***'
-                STOP' ***   Disaster in getsh   ***'
+                STOP ' ***   Disaster in getsh   ***'
              END IF
           END DO
        END DO
