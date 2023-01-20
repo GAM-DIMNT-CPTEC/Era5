@@ -20,7 +20,7 @@ SHELL=/bin/sh
 #
 MAKE=make
 # Caminho onde deverao ficar os arquivos executaveis do Pos
-PATH2=/scratchin/grupos/ensemble/home/carlos.bastarz/BAM_V1.2.1/pos/exec
+PATH2=/mnt/beegfs/carlos.bastarz/BAM_V1.2.1/pos/exec
 
 all:
 	@echo "Please specify target:"
@@ -30,10 +30,12 @@ all:
 .DEFAULT:
 	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f ./Makefile.$@ ];\
 	   then ln -fs makefiles/Makefile.$@ Makefile.$@; fi)
-	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f w3lib-1.4/Makefile.$@ ];\
-	   then ln -fs ../makefiles/Makefile.$@ w3lib-1.4/Makefile.$@; fi)
+#	@- (cd .; if [ -f makefiles/Makefile.$@ -a ! -f w3lib-1.4/Makefile.$@ ];\
+#	   then ln -fs ../makefiles/Makefile.$@ w3lib-1.4/Makefile.$@; fi)
 
-	(cd w3lib-1.4;$(MAKE) -f Makefile.$@)
+#	(cd w3lib-1.4;$(MAKE) -f Makefile.$@)
+	(rm -rf bacio/NCEPLIBS-bacio-2.5.0/build; rm -rf bacio/NCEPLIBS-bacio-2.5.0/rls; cd bacio/; ./makebacio_cptec.sh $@)
+	(rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/build; rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/rls; cd w3emc/; ./makew3emc_cptec.sh $@)
 	(cd .;$(MAKE) -f Makefile.$@)
 	(cp PostGrib $(PATH2)/PostGrib)
 	(rm  -f Makefile.$@ )
@@ -46,4 +48,6 @@ clean:
 	@echo "$(MAKE)"
 
 	(cd .;$(MAKE) -f Makefile.common clean)
-	(cd w3lib-1.4;$(MAKE) -f Makefile.common clean)
+#	(cd w3lib-1.4;$(MAKE) -f Makefile.common clean)
+	(rm -rf bacio/NCEPLIBS-bacio-2.5.0/build; rm -rf bacio/NCEPLIBS-bacio-2.5.0/rls)
+	(rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/build; rm -rf w3emc/NCEPLIBS-w3emc-2.9.3/rls)
