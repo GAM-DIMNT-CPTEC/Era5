@@ -12,7 +12,7 @@
 EXEC=ParModel_MPI
 LIB=Physics/Radiation/RRTMG/ext/rrtmg_sw/rrtmg_sw.a
 LIB2=Physics/Radiation/RRTMG/ext/rrtmg_lw/rrtmg_lw.a
-LIB3=-lhugetlbfs
+#LIB3=-lhugetlbfs
 
 
 OBJ= \
