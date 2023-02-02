@@ -9,8 +9,8 @@
 # Use Makefile.sx6 for Digital Unix 4.0 and above
 #
 
-MPIF90=mpif90 -fconvert=big-endian
-F90=mpif90 -fconvert=big-endian
+MPIF90=mpif90 -O0 -fconvert=big-endian
+F90=mpif90 -O0 -fconvert=big-endian
 AR=ar
 FTRACE= 
 OPENMP=
@@ -21,7 +21,7 @@ LOADFLAG=
 
 # OPTIONS FOR POS
 
-F77	= mpif90 -fconvert=big-endian 
+F77	= mpif90 -O0 -fconvert=big-endian 
 FFLAGS	= 
 CFLAGS	= -DINTEL
 ARFLAGS	= 

@@ -9,6 +9,9 @@
 # Use Makefile.sx6 for Digital Unix 4.0 and above
 #
 
+# CFB: para compilar com o Intel na Egeon, é necessário usar pelo menos a flag -O0
+# Sem essa flag de otimização (nesse caso, nível 0) a compilação falha
+
 #MPIF90=mpif90 -g -O0 -convert big_endian -check all -debug all -ftrapuv -fpe0 -fstack-protector-all -fPIC
 #F90=mpif90 -g -O0 -convert big_endian -check all -debug all -ftrapuv -fpe0 -fstack-protector-all -fPIC 
 MPIF90=mpif90 -O0 -convert big_endian 

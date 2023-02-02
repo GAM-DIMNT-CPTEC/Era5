@@ -281,11 +281,20 @@ MODULE Cu_RAS3PHASE
         INTEGER,PARAMETER:: n=624
         INTEGER,PARAMETER:: m=397
         INTEGER(KIND=i8),PARAMETER:: mata=-1727483681_i8 ! constant vector a
-        INTEGER(KIND=i8),PARAMETER:: umask=-2147483648_i8 ! most significant w-r bits
-        INTEGER(KIND=i8),PARAMETER:: lmask =2147483647_i8 ! least significant r bits
-        INTEGER(KIND=i8),PARAMETER:: tmaskb=-1658038656_i8 ! tempering parameter
-        INTEGER(KIND=i8),PARAMETER:: tmaskc=-272236544_i8 ! tempering parameter
-        INTEGER(KIND=i8),PARAMETER:: mag01(0:1)=(/0_i8,mata/)
+
+!CFB - bugs (?) relacionados aos tipos de erro: "Error: Arguments of 'iand' have different kind type parameters"
+!        INTEGER(KIND=i8),PARAMETER:: umask=-2147483648_i8 ! most significant w-r bits
+        INTEGER,PARAMETER:: umask=-2147483648_i8 ! most significant w-r bits
+!        INTEGER(KIND=i8),PARAMETER:: lmask =2147483647_i8 ! least significant r bits
+        INTEGER,PARAMETER:: lmask =2147483647_i8 ! least significant r bits      
+!        INTEGER(KIND=i8),PARAMETER:: tmaskb=-1658038656_i8 ! tempering parameter
+        INTEGER,PARAMETER:: tmaskb=-1658038656_i8 ! tempering parameter
+!        INTEGER(KIND=i8),PARAMETER:: tmaskc=-272236544_i8 ! tempering parameter
+        INTEGER,PARAMETER:: tmaskc=-272236544_i8 ! tempering parameter
+!        INTEGER(KIND=i8),PARAMETER:: mag01(0:1)=(/0_i8,mata/)
+        INTEGER,PARAMETER:: mag01(0:1)=(/0_i8,mata/)
+!CFB    
+
         INTEGER,PARAMETER:: iseed=4357
 
 !  Defined types

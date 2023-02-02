@@ -16,17 +16,17 @@
 # 
 AR=ar
 ARFLAGS = 
-F90=mpif90 -fconvert=big-endian
+F90=mpif90 -O0 -fconvert=big-endian
 F90_32FLAGS = 
-F90_32BITS = -O3
-F77 = mpif90 -fconvert=big-endian
-FFLAGS = -O3
+F90_32BITS = 
+F77 = mpif90 -O0 -fconvert=big-endian
+FFLAGS = 
 CC = gcc
 # If there is a version difference between your gcc and the gcc
 # used to compile the ifort binary, you may have to add a flag
 # like -gcc-version=400 do CFLAG
-CFLAGS = -O3 -DLINUX 
-LOADFLAG=-O0
+CFLAGS = -DLINUX 
+LOADFLAG=
 
 #
 # PORTLAND COMPILER - WORKING

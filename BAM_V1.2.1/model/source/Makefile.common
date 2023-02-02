@@ -12,7 +12,7 @@
 EXEC=ParModel_MPI
 LIB=Physics/Radiation/RRTMG/ext/rrtmg_sw/rrtmg_sw.a
 LIB2=Physics/Radiation/RRTMG/ext/rrtmg_lw/rrtmg_lw.a
-LIB3=-lhugetlbfs
+#LIB3=-lhugetlbfs
 
 
 OBJ= \
@@ -318,7 +318,10 @@ Rad_COLA.o	:	Physics/Radiation/COLA/Rad_COLA.f90 Constants.o
 	$(F90) -c Physics/Radiation/COLA/Rad_COLA.f90
 
 Rad_Clirad.o	:	Physics/Radiation/Clirad/Rad_Clirad.f90  Constants.o  Options.o
-	$(F90) -I./Physics/Radiation/Clirad/coa.data90 -I./Physics/Radiation/Clirad/cah.data90 -I./Physics/Radiation/Clirad/mcai.data90 -c Physics/Radiation/Clirad/Rad_Clirad.f90 
+#CFB
+#	$(F90) -I./Physics/Radiation/Clirad/coa.data90 -I./Physics/Radiation/Clirad/cah.data90 -I./Physics/Radiation/Clirad/mcai.data90 -c Physics/Radiation/Clirad/Rad_Clirad.f90 
+	$(F90) -c Physics/Radiation/Clirad/Rad_Clirad.f90 
+#CFB
 
 Rad_CliRadLW.o	:	Physics/Radiation/Clirad/Rad_CliRadLW.f90  Constants.o  Options.o
 	$(F90) -c Physics/Radiation/Clirad/Rad_CliRadLW.f90

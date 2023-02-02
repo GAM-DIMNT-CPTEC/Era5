@@ -29,7 +29,7 @@ aptions7="sib2sandmskclm sib2sandmsk sstdirec    co2direc   topograd   chpp     
 opt=" "
 MAKE=make
 # Caminho onde deverao ficar os arquivos executaveis do Pre
-PATH2=/mnt/beegfs/carlos.bastarz/oensMB09/pre/exec.intel_new_libs
+PATH2=/mnt/beegfs/carlos.bastarz/cfbastarz.tmp/BAM_V1.2.1/pre/exec
 
 all:
 	@echo "Please specify target:"

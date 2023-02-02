@@ -2500,7 +2500,7 @@ CONTAINS
     IF (pgam < g_mu(1) .OR. pgam > g_mu(nmu)) THEN
        WRITE(iulog,*)'pgam from prognostic cldwat2m',pgam
        WRITE(iulog,*)'g_mu from file',g_mu
-       STOP'pgam exceeds limits' !call endrun ('pgam exceeds limits')
+       STOP 'pgam exceeds limits' !call endrun ('pgam exceeds limits')
     ENDIF
     DO imu = 1, nmu
        kmu = imu
@@ -2513,7 +2513,7 @@ CONTAINS
        klambda = ilambda
        IF (wmu*g_lambda(kmu-1,ilambda) + onemwmu*g_lambda(kmu,ilambda) < lamc) EXIT
     ENDDO
-    IF (klambda <= 1 .OR. klambda > nlambda) STOP'lamc  exceeds limits'! call endrun('lamc  exceeds limits')
+    IF (klambda <= 1 .OR. klambda > nlambda) STOP 'lamc  exceeds limits'! call endrun('lamc  exceeds limits')
     lambdaplus = wmu*g_lambda(kmu-1,klambda  ) + onemwmu*g_lambda(kmu,klambda  )
     lambdaminus= wmu*g_lambda(kmu-1,klambda-1) + onemwmu*g_lambda(kmu,klambda-1)
     wlambda = (lambdaplus - lamc) / (lambdaplus - lambdaminus)

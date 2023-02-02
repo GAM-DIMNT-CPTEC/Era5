@@ -14,9 +14,9 @@
 #   ifort: error: problem during multi-file optimization compilation (code 1)
 # Here we adopt the safe procedure of passing -O0 to LOADFLAG
 # 
-FTRACE= -O1
+FTRACE= 
 OPENMP=
-F90=mpif90 -fconvert=big-endian $(FTRACE) $(OPENMP) -ffree-line-length-none
+F90=mpif90 -O0 -fconvert=big-endian $(FTRACE) $(OPENMP) -ffree-line-length-none
 NOASSUME=
 HVECTOR=
 INLINE_CU_GRELL=

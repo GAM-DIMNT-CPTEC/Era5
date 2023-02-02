@@ -26,7 +26,7 @@ LV=28
 #LV=64
 
 # Caminho onde devera fica o arquivo executavel do Model
-PATH2=/scratchin/grupos/ensemble/home/carlos.bastarz/BAM_V1.2.1/model/exec
+PATH2=/mnt/beegfs/carlos.bastarz/cfbastarz.tmp/BAM_V1.2.1/model/exec
 
 all:
 	@echo "Please specify target:"

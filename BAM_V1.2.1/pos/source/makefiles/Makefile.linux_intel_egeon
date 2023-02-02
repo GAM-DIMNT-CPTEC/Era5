@@ -16,10 +16,10 @@
 # 
 AR=ar
 ARFLAGS = -ruv 
-F90=mpif90 -convert big_endian  -O1 
+F90=mpif90 -O0 -convert big_endian 
 F90_32FLAGS = 
 F90_32BITS = 
-F77=mpif90 -convert big_endian  -O1 
+F77=mpif90 -O0 -convert big_endian 
 FFLAGS = 
 CC=icc -no-multibyte-chars 
 # If there is a version difference between your gcc and the gcc

@@ -17,7 +17,7 @@
 FTRACE=
 OPENMP= -qopenmp
 FTRACE=
-F90=mpif90 -convert big_endian $(FTRACE) $(OPENMP)
+F90=mpif90 -O0 -convert big_endian $(FTRACE) $(OPENMP)
 NOASSUME=
 HVECTOR=
 INLINE_CU_GRELL=

@@ -20,7 +20,7 @@ SHELL=/bin/sh
 #
 MAKE=make
 # Caminho onde deverao ficar os arquivos executaveis do Pos
-PATH2=/mnt/beegfs/carlos.bastarz/BAM_V1.2.1/pos/exec
+PATH2=/mnt/beegfs/carlos.bastarz/cfbastarz.tmp/BAM_V1.2.1/pos/exec
 
 all:
 	@echo "Please specify target:"
