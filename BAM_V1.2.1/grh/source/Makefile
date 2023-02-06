@@ -19,7 +19,7 @@ SHELL=/bin/sh
 # then builds the nedit and nc executables in the source/ directory.
 #
 MAKE=make
-PATH2=./
+PATH2=/mnt/beegfs/carlos.bastarz/cfbastarz.tmp/BAM_V1.2.1/grh/exec
 
 all:
 	@echo "Please specify target:"

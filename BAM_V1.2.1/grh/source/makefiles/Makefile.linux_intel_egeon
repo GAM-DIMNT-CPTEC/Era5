@@ -1,0 +1,23 @@
+#
+#  $Author: pkubota $
+#  $Date: 2007/10/10 20:24:23 $
+#  $Revision: 1.1 $
+#
+# $Id: Makefile.linux,v 1.1 2007/10/10 20:24:23 pkubota Exp $
+#
+
+AR=ar
+ARFLAGS = 
+F90=mpif90 
+F90_32FLAGS = 
+F90_32BITS = -O0
+F77 = mpif90 
+FFLAGS = -O0
+CC = gcc
+# If there is a version difference between your gcc and the gcc
+# used to compile the ifort binary, you may have to add a flag
+# like -gcc-version=400 do CFLAG
+CFLAGS = -O0 -DLINUX 
+LOADFLAG=-O0
+
+include Makefile.common

@@ -724,6 +724,6 @@ PROGRAM PostGridHistory
    WRITE (UNIT=80, FMT='(A)') 'endvars'
    CLOSE (UNIT=80)
 
-   STOP' End of Grid History Post-Processing'
+   STOP ' End of Grid History Post-Processing'
 
 END PROGRAM PostGridHistory
