@@ -1,2 +1,0 @@
-./runPre 126 28 2020021700 SMT 1 T F 1534 64
-./runModel -t 126 -l 28 -np 48 -d 4 -N 6 -I 2020021700 -W 2020021900 -F 2020021900 -ts 3 -p SMT -s sstwkl
