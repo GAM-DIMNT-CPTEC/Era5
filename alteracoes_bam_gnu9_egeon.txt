@@ -1,9 +1,0 @@
-Alterações no BAM_V1.2.1 para compilar com o GNU9 (da máquina) na Egeon (nenhuma destas modificações é necessária para compilar com o INtel da Egeon ou com um compilador GNU mais antigo, em uso com os containeres testados):
-
-1. Physics/Convection/DeepConvection/RAS3PHASE/Cu_RAS3PHASE.f90
-- Moficicações na declaração de alguns inteiros (removido o kind=i8) para compilar sem a mensagem de erro "Error: Arguments of 'iand' have different kind type parameters at (1)"
-2. Makefile.common 
-- Removidos os includes da compilação da rotina Physics/Radiation/Clirad/Rad_Clirad.f90 para evitar o erro "f951: Fatal Error: './Physics/Radiation/Clirad/coa.data90' is not a directory"
-3. Physics/Radiation/CloudOpticalProperty.f90
-- Inseridos espaços entre a intrução STOP e as aspas simples utilizadas para evitar o erro "Error: Blank required in STOP statement near (1)"
-
